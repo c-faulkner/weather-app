@@ -1,0 +1,77 @@
+body {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.container {
+  background-color: rgb(252, 246, 239);
+  border: 1px solid rgb(68, 67, 67);
+  border-radius: 10px;
+  margin: 30px auto;
+  padding: 20px;
+  width: 50%;
+}
+
+.main-content {
+  margin: 80px auto;
+}
+
+h1 {
+  color: rgb(68, 67, 67);
+  font-size: 60px;
+  font-weight: 600;
+  text-align: center;
+}
+
+h2 {
+  color: rgb(68, 67, 67);
+  font-size: 20px;
+  font-weight: 100;
+}
+
+h3 {
+  color: rgb(68, 67, 67);
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.temp-units {
+  font-size: 20px;
+  font-weight: 100;
+  position: relative;
+}
+
+.form-control {
+  border: none;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.search-button {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  font-size: 14px;
+}
+
+.left-col {
+  border-right: 2px solid rgb(209, 10, 10);
+  text-align: center;
+}
+
+.right-col {
+  margin-top: 72px;
+}
+
+.main-content-icons {
+  color: rgb(68, 67, 67);
+  text-align: right;
+}
+
+.five-days {
+  margin: 30px auto;
+  text-align: center;
+}
+
+.five-days-icon {
+  color: rgb(68, 67, 67);
+  margin: 20px auto;
+}
