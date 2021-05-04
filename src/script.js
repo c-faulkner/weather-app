@@ -43,7 +43,7 @@ function getWeather(response) {
 
   document.querySelector(
     "#weather-description"
-  ).innerHTML = `${response.data.weather[0].main}`;
+  ).innerHTML = `${response.data.weather[0].description}`;
 
   let currentTempMin = Math.round(response.data.main.temp_min);
   let currentTempMax = Math.round(response.data.main.temp_max);
@@ -64,12 +64,19 @@ function getWeather(response) {
     mainTemperatureElement.innerHTML = Math.round(
       (`${temperature}` * 9) / 5 + 32
     );
+    let tempRangeElement = document.querySelector("#temp-range");
+    let tempMinElement = Math.round((`${currentTempMin}` * 9) / 5 + 32);
+    let tempMaxElement = Math.round((`${currentTempMax}` * 9) / 5 + 32);
+    tempRangeElement.innerHTML = `${tempMinElement}° - ${tempMaxElement}°`;
   }
 
   function displayCelsius(event) {
     event.preventDefault();
     let mainTemperatureElement = document.querySelector("#current-temp");
     mainTemperatureElement.innerHTML = `${temperature}`;
+    let tempRangeElement = (document.querySelector(
+      "#temp-range"
+    ).innerHTML = `${currentTempMin}° - ${currentTempMax}°`);
   }
 
   let fahrenheitLink = document.querySelector("#fahrenheit-link");

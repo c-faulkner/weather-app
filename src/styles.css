@@ -1,50 +1,56 @@
 body {
   font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-.container {
-  background-color: rgb(252, 246, 239);
-  border: 1px solid rgb(68, 67, 67);
-  border-radius: 10px;
-  margin: 30px auto;
-  padding: 20px;
-  max-width: 700px;
-}
-
-.main-content {
-  margin: 80px auto;
+  color: rgb(68, 67, 67);
 }
 
 h1 {
-  color: rgb(68, 67, 67);
   font-size: 60px;
   font-weight: 600;
   text-align: center;
 }
 
 h2 {
-  color: rgb(68, 67, 67);
   font-size: 20px;
   font-weight: 100;
+  text-transform: capitalize;
 }
 
 h3 {
-  color: rgb(68, 67, 67);
   font-size: 14px;
   font-weight: 100;
   text-align: center;
 }
 
 h4 {
-  color: rgb(68, 67, 67);
   font-size: 14px;
   font-weight: 100;
+}
+
+.weather-app-wrapper {
+  margin: 30px auto;
+  max-width: 700px;
+}
+
+.weather-app {
+  background-color: rgb(252, 246, 239);
+  border: 1px solid rgb(68, 67, 67);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.main-content {
+  margin: 80px auto;
 }
 
 .temp-units {
   font-size: 20px;
   font-weight: 100;
   position: relative;
+}
+
+.temp-units a {
+  color: rgb(68, 67, 67);
+  text-decoration: none;
 }
 
 .form-control {
