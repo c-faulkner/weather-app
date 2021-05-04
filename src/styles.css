@@ -53,6 +53,10 @@ h4 {
   text-decoration: none;
 }
 
+.temp-units .active {
+  font-weight: 600;
+}
+
 .form-control {
   border: none;
   font-size: 14px;

@@ -68,6 +68,8 @@ function getWeather(response) {
     let tempMinElement = Math.round((`${currentTempMin}` * 9) / 5 + 32);
     let tempMaxElement = Math.round((`${currentTempMax}` * 9) / 5 + 32);
     tempRangeElement.innerHTML = `${tempMinElement}° - ${tempMaxElement}°`;
+    celsiusLink.classList.remove("active");
+    fahrenheitLink.classList.add("active");
   }
 
   function displayCelsius(event) {
@@ -77,6 +79,8 @@ function getWeather(response) {
     let tempRangeElement = (document.querySelector(
       "#temp-range"
     ).innerHTML = `${currentTempMin}° - ${currentTempMax}°`);
+    celsiusLink.classList.add("active");
+    fahrenheitLink.classList.remove("active");
   }
 
   let fahrenheitLink = document.querySelector("#fahrenheit-link");
