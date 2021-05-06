@@ -32,7 +32,38 @@ let month = months[now.getMonth()];
 
 currentTime.innerHTML = `${day}, ${date} ${month}`;
 
-// Display city and weather
+// Display weather & forecast
+
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+              <div class="col weather-forecast-day">
+                <h3>${day}</h3>
+                <i class="fas fa-cloud-sun weather-forecast-icon"></i>
+                <h3>
+                  <strong>17°C</strong>
+                </h3>
+              </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = `3a759a88e39e98e3809aa2fadfd9c6f9`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
 
 function getWeather(response) {
   document.querySelector(`#city-name`).innerHTML = response.data.name;
@@ -58,37 +89,10 @@ function getWeather(response) {
   let wind = Math.round(response.data.wind.speed);
   document.querySelector(`#wind-speed`).innerHTML = `${wind}km/h`;
 
-  function displayFahrenheit(event) {
-    event.preventDefault();
-    let mainTemperatureElement = document.querySelector("#current-temp");
-    mainTemperatureElement.innerHTML = Math.round(
-      (`${temperature}` * 9) / 5 + 32
-    );
-    let tempRangeElement = document.querySelector("#temp-range");
-    let tempMinElement = Math.round((`${currentTempMin}` * 9) / 5 + 32);
-    let tempMaxElement = Math.round((`${currentTempMax}` * 9) / 5 + 32);
-    tempRangeElement.innerHTML = `${tempMinElement}° - ${tempMaxElement}°`;
-    celsiusLink.classList.remove("active");
-    fahrenheitLink.classList.add("active");
-  }
-
-  function displayCelsius(event) {
-    event.preventDefault();
-    let mainTemperatureElement = document.querySelector("#current-temp");
-    mainTemperatureElement.innerHTML = `${temperature}`;
-    let tempRangeElement = (document.querySelector(
-      "#temp-range"
-    ).innerHTML = `${currentTempMin}° - ${currentTempMax}°`);
-    celsiusLink.classList.add("active");
-    fahrenheitLink.classList.remove("active");
-  }
-
-  let fahrenheitLink = document.querySelector("#fahrenheit-link");
-  fahrenheitLink.addEventListener("click", displayFahrenheit);
-
-  let celsiusLink = document.querySelector("#celsius-link");
-  celsiusLink.addEventListener("click", displayCelsius);
+  getForecast(response.data.coord);
 }
+
+// Change city
 
 function changeCity(event) {
   event.preventDefault();
@@ -105,29 +109,35 @@ function changeCity(event) {
 let searchForm = document.querySelector("#city-input-form");
 searchForm.addEventListener("submit", changeCity);
 
-// Display forecast
+// Change temperature units
 
-function displayForecast() {
-  let forecastElement = document.querySelector("#forecast");
-
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
-
-  let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
-              <div class="col weather-forecast-day">
-                <h3>${day}</h3>
-                <i class="fas fa-cloud-sun weather-forecast-icon"></i>
-                <h3>
-                  <strong>17°C</strong>
-                </h3>
-              </div>`;
-  });
-
-  forecastHTML = forecastHTML + `</div>`;
-  forecastElement.innerHTML = forecastHTML;
+function displayFahrenheit(event) {
+  event.preventDefault();
+  let mainTemperatureElement = document.querySelector("#current-temp");
+  mainTemperatureElement.innerHTML = Math.round(
+    (`${temperature}` * 9) / 5 + 32
+  );
+  let tempRangeElement = document.querySelector("#temp-range");
+  let tempMinElement = Math.round((`${currentTempMin}` * 9) / 5 + 32);
+  let tempMaxElement = Math.round((`${currentTempMax}` * 9) / 5 + 32);
+  tempRangeElement.innerHTML = `${tempMinElement}° - ${tempMaxElement}°`;
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
 }
 
-displayForecast();
+function displayCelsius(event) {
+  event.preventDefault();
+  let mainTemperatureElement = document.querySelector("#current-temp");
+  mainTemperatureElement.innerHTML = `${temperature}`;
+  let tempRangeElement = (document.querySelector(
+    "#temp-range"
+  ).innerHTML = `${currentTempMin}° - ${currentTempMax}°`);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+}
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsius);
