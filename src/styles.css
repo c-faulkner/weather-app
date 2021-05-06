@@ -87,12 +87,12 @@ h4 {
   text-align: left;
 }
 
-.five-days {
+.weather-forecast-day {
   margin: 30px auto;
   text-align: center;
 }
 
-.five-days-icon {
+.weather-forecast-icon {
   color: rgb(68, 67, 67);
   margin: 20px auto;
 }

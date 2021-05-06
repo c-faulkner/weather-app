@@ -104,3 +104,30 @@ function changeCity(event) {
 
 let searchForm = document.querySelector("#city-input-form");
 searchForm.addEventListener("submit", changeCity);
+
+// Display forecast
+
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+              <div class="col weather-forecast-day">
+                <h3>${day}</h3>
+                <i class="fas fa-cloud-sun weather-forecast-icon"></i>
+                <h3>
+                  <strong>17°C</strong>
+                </h3>
+              </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+displayForecast();
