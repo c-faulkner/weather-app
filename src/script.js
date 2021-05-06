@@ -90,6 +90,39 @@ function getWeather(response) {
   document.querySelector(`#wind-speed`).innerHTML = `${wind}km/h`;
 
   getForecast(response.data.coord);
+
+  // Change temperature units
+
+  function displayFahrenheit(event) {
+    event.preventDefault();
+    let mainTemperatureElement = document.querySelector("#current-temp");
+    mainTemperatureElement.innerHTML = Math.round(
+      (`${temperature}` * 9) / 5 + 32
+    );
+    let tempRangeElement = document.querySelector("#temp-range");
+    let tempMinElement = Math.round((`${currentTempMin}` * 9) / 5 + 32);
+    let tempMaxElement = Math.round((`${currentTempMax}` * 9) / 5 + 32);
+    tempRangeElement.innerHTML = `${tempMinElement}° - ${tempMaxElement}°`;
+    celsiusLink.classList.remove("active");
+    fahrenheitLink.classList.add("active");
+  }
+
+  function displayCelsius(event) {
+    event.preventDefault();
+    let mainTemperatureElement = document.querySelector("#current-temp");
+    mainTemperatureElement.innerHTML = `${temperature}`;
+    let tempRangeElement = (document.querySelector(
+      "#temp-range"
+    ).innerHTML = `${currentTempMin}° - ${currentTempMax}°`);
+    celsiusLink.classList.add("active");
+    fahrenheitLink.classList.remove("active");
+  }
+
+  let fahrenheitLink = document.querySelector("#fahrenheit-link");
+  fahrenheitLink.addEventListener("click", displayFahrenheit);
+
+  let celsiusLink = document.querySelector("#celsius-link");
+  celsiusLink.addEventListener("click", displayCelsius);
 }
 
 // Change city
@@ -108,36 +141,3 @@ function changeCity(event) {
 
 let searchForm = document.querySelector("#city-input-form");
 searchForm.addEventListener("submit", changeCity);
-
-// Change temperature units
-
-function displayFahrenheit(event) {
-  event.preventDefault();
-  let mainTemperatureElement = document.querySelector("#current-temp");
-  mainTemperatureElement.innerHTML = Math.round(
-    (`${temperature}` * 9) / 5 + 32
-  );
-  let tempRangeElement = document.querySelector("#temp-range");
-  let tempMinElement = Math.round((`${currentTempMin}` * 9) / 5 + 32);
-  let tempMaxElement = Math.round((`${currentTempMax}` * 9) / 5 + 32);
-  tempRangeElement.innerHTML = `${tempMinElement}° - ${tempMaxElement}°`;
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-}
-
-function displayCelsius(event) {
-  event.preventDefault();
-  let mainTemperatureElement = document.querySelector("#current-temp");
-  mainTemperatureElement.innerHTML = `${temperature}`;
-  let tempRangeElement = (document.querySelector(
-    "#temp-range"
-  ).innerHTML = `${currentTempMin}° - ${currentTempMax}°`);
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-}
-
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheit);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsius);
