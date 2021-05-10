@@ -2,7 +2,6 @@
 
 let now = new Date();
 let currentTime = document.querySelector("#current-time");
-
 let days = [
   "Sunday",
   "Monday",
@@ -12,6 +11,7 @@ let days = [
   "Friday",
   "Saturday",
 ];
+
 let day = days[now.getDay()];
 let date = now.getDate();
 let months = [
@@ -28,8 +28,8 @@ let months = [
   "November",
   "December",
 ];
-let month = months[now.getMonth()];
 
+let month = months[now.getMonth()];
 currentTime.innerHTML = `${day}, ${date} ${month}`;
 
 // Display weather & forecast
@@ -37,9 +37,7 @@ currentTime.innerHTML = `${day}, ${date} ${month}`;
 function displayForecast(response) {
   console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast");
-
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
-
   let forecastHTML = `<div class="row">`;
   days.forEach(function (day) {
     forecastHTML =
@@ -53,7 +51,6 @@ function displayForecast(response) {
                 </h3>
               </div>`;
   });
-
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
@@ -67,63 +64,59 @@ function getForecast(coordinates) {
 
 function getWeather(response) {
   document.querySelector(`#city-name`).innerHTML = response.data.name;
-  let temperature = Math.round(response.data.main.temp);
-
+  temperature = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");
   currentTemp.innerHTML = `${temperature}`;
-
   document.querySelector(
     "#weather-description"
   ).innerHTML = `${response.data.weather[0].description}`;
-
-  let currentTempMin = Math.round(response.data.main.temp_min);
-  let currentTempMax = Math.round(response.data.main.temp_max);
+  currentTempMin = Math.round(response.data.main.temp_min);
+  currentTempMax = Math.round(response.data.main.temp_max);
   document.querySelector(
     "#temp-range"
   ).innerHTML = `${currentTempMin}° - ${currentTempMax}°`;
-
   document.querySelector(
     `#humidity`
   ).innerHTML = `${response.data.main.humidity}%`;
-
   let wind = Math.round(response.data.wind.speed);
   document.querySelector(`#wind-speed`).innerHTML = `${wind}km/h`;
-
   getForecast(response.data.coord);
-
-  // Change temperature units
-
-  function displayFahrenheit(event) {
-    event.preventDefault();
-    let mainTemperatureElement = document.querySelector("#current-temp");
-    mainTemperatureElement.innerHTML = Math.round(
-      (`${temperature}` * 9) / 5 + 32
-    );
-    let tempRangeElement = document.querySelector("#temp-range");
-    let tempMinElement = Math.round((`${currentTempMin}` * 9) / 5 + 32);
-    let tempMaxElement = Math.round((`${currentTempMax}` * 9) / 5 + 32);
-    tempRangeElement.innerHTML = `${tempMinElement}° - ${tempMaxElement}°`;
-    celsiusLink.classList.remove("active");
-    fahrenheitLink.classList.add("active");
-  }
-
-  function displayCelsius(event) {
-    event.preventDefault();
-    let mainTemperatureElement = document.querySelector("#current-temp");
-    mainTemperatureElement.innerHTML = `${temperature}`;
-    let tempRangeElement = (document.querySelector(
-      "#temp-range"
-    ).innerHTML = `${currentTempMin}° - ${currentTempMax}°`);
-    celsiusLink.classList.add("active");
-    fahrenheitLink.classList.remove("active");
-  }
-
-  let fahrenheitLink = document.querySelector("#fahrenheit-link");
-  fahrenheitLink.addEventListener("click", displayFahrenheit);
-
-  let celsiusLink = document.querySelector("#celsius-link");
-  celsiusLink.addEventListener("click", displayCelsius);
 }
+
+// Change temperature units
+
+function displayFahrenheit(event) {
+  event.preventDefault();
+  let mainTemperatureElement = document.querySelector("#current-temp");
+  mainTemperatureElement.innerHTML = Math.round(
+    (`${temperature}` * 9) / 5 + 32
+  );
+  let tempRangeElement = document.querySelector("#temp-range");
+  let tempMinElement = Math.round((`${currentTempMin}` * 9) / 5 + 32);
+  let tempMaxElement = Math.round((`${currentTempMax}` * 9) / 5 + 32);
+  tempRangeElement.innerHTML = `${tempMinElement}° - ${tempMaxElement}°`;
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+}
+
+function displayCelsius(event) {
+  event.preventDefault();
+  let mainTemperatureElement = document.querySelector("#current-temp");
+  mainTemperatureElement.innerHTML = `${temperature}`;
+  let tempRangeElement = (document.querySelector(
+    "#temp-range"
+  ).innerHTML = `${currentTempMin}° - ${currentTempMax}°`);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+}
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheit);
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsius);
+let temperature = null;
+let currentTempMin = null;
+let currentTempMax = null;
 
 // Change city
 
@@ -132,10 +125,10 @@ function changeCity(event) {
   let cityInput = document.querySelector("#city-input");
   let cityName = document.querySelector("#city-name");
   cityName.innerHTML = `${cityInput.value}`;
-
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
   let apiKey = `3a759a88e39e98e3809aa2fadfd9c6f9`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${apiKey}&units=metric`;
-
   axios.get(apiUrl).then(getWeather);
 }
 
