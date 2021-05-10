@@ -34,22 +34,31 @@ currentTime.innerHTML = `${day}, ${date} ${month}`;
 
 // Display weather & forecast
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
               <div class="col weather-forecast-day">
-                <h3>${day}</h3>
+                <h3>${formatDay(forecastDay.dt)}</h3>
                 <i class="fas fa-cloud-sun weather-forecast-icon"></i>
                 <h3>
-                  <strong>17°C</strong>
+                  <strong>${Math.round(forecastDay.temp.day)}°C</strong>
                 </h3>
               </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
