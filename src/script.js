@@ -53,7 +53,11 @@ function displayForecast(response) {
         `
               <div class="col weather-forecast-day">
                 <h3>${formatDay(forecastDay.dt)}</h3>
-                <i class="fas fa-cloud-sun weather-forecast-icon"></i>
+                <img src="src/img/${forecastDay.weather[0].icon}.svg"
+                  alt=""      
+                  class="weather-forecast-icon"
+                  width="20"
+                />
                 <h3>
                   <strong>${Math.round(forecastDay.temp.day)}°C</strong>
                 </h3>
@@ -71,6 +75,14 @@ function getForecast(coordinates) {
 }
 
 function getWeather(response) {
+  let weatherIcon = document.querySelector("#weather-icon");
+
+  weatherIcon.setAttribute(
+    "src",
+    `src/img/${response.data.weather[0].icon}.svg`
+  );
+  weatherIcon.setAttribute("alt", response.data.weather[0].description);
+
   document.querySelector(`#city-name`).innerHTML = response.data.name;
   temperature = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");

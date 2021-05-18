@@ -78,6 +78,11 @@ h4 {
   margin-top: 72px;
 }
 
+.weather-icon {
+  color: rgb(68, 67, 67);
+  text-align: center;
+}
+
 .main-content-icons {
   color: rgb(68, 67, 67);
   text-align: right;
