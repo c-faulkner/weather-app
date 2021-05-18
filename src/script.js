@@ -65,7 +65,6 @@ function displayForecast(response) {
 }
 
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiKey = `3a759a88e39e98e3809aa2fadfd9c6f9`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
@@ -129,17 +128,21 @@ let currentTempMax = null;
 
 // Change city
 
-function changeCity(event) {
-  event.preventDefault();
-  let cityInput = document.querySelector("#city-input");
-  let cityName = document.querySelector("#city-name");
-  cityName.innerHTML = `${cityInput.value}`;
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let apiKey = `3a759a88e39e98e3809aa2fadfd9c6f9`;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${apiKey}&units=metric`;
+function search(city) {
+  let apiKey = "3a759a88e39e98e3809aa2fadfd9c6f9";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(getWeather);
 }
+
+function changeCity(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+}
+
+search("Lisbon");
 
 let searchForm = document.querySelector("#city-input-form");
 searchForm.addEventListener("submit", changeCity);
