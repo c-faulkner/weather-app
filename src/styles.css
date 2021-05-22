@@ -1,6 +1,6 @@
 body {
   font-family: Verdana, Arial, Helvetica, sans-serif;
-  color: rgb(68, 67, 67);
+  color: black;
 }
 
 h1 {
@@ -49,7 +49,7 @@ h4 {
 }
 
 .temp-units a {
-  color: rgb(68, 67, 67);
+  color: black;
   text-decoration: none;
 }
 
@@ -79,12 +79,12 @@ h4 {
 }
 
 .weather-icon {
-  color: rgb(68, 67, 67);
+  color: black;
   text-align: center;
 }
 
 .main-content-icons {
-  color: rgb(68, 67, 67);
+  color: black;
   text-align: right;
 }
 
@@ -98,6 +98,6 @@ h4 {
 }
 
 .weather-forecast-icon {
-  color: rgb(68, 67, 67);
+  color: black;
   margin: 20px auto;
 }
