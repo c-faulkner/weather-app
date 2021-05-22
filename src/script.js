@@ -84,6 +84,9 @@ function getWeather(response) {
   weatherIcon.setAttribute("alt", response.data.weather[0].description);
 
   document.querySelector(`#city-name`).innerHTML = response.data.name;
+  if (response.data.name.length > 7) {
+    document.querySelector(`#city-name`).style.fontSize = "45px";
+  }
   temperature = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");
   currentTemp.innerHTML = `${temperature}`;
